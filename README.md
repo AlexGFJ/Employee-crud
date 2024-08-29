@@ -48,7 +48,7 @@ Las contribuciones son bienvenidas. Por favor, realiza un fork del repositorio y
   <img src="https://media.giphy.com/media/jpVnC65DmYeyRL4LHS/giphy.gif" width="20%">
   <br/>
   <br/>
-  Hecho con :heart: usando GitHub Markdown
+  Hecho con :heart: 
 </p>
 
 ⭐️ From [AlexGFJ](https://github.com/AlexGFJ)
