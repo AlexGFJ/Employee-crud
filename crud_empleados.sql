@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 15-08-2024 a las 21:44:28
--- Versión del servidor: 10.4.10-MariaDB
--- Versión de PHP: 7.1.33
+-- Tiempo de generación: 29-08-2024 a las 22:16:42
+-- Versión del servidor: 8.3.0
+-- Versión de PHP: 8.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -30,23 +29,25 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `empleados`;
 CREATE TABLE IF NOT EXISTS `empleados` (
-  `Id_empleado` int(11) NOT NULL AUTO_INCREMENT,
+  `Id_empleado` int NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(50) NOT NULL,
   `Direccion` varchar(50) NOT NULL,
   `Telefono` varchar(15) NOT NULL,
   `email` varchar(70) NOT NULL,
-  `Id_empresa` int(11) NOT NULL,
-  `Status` int(11) NOT NULL,
-  PRIMARY KEY (`Id_empleado`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `Id_empresa` int NOT NULL,
+  `Status` int NOT NULL,
+  PRIMARY KEY (`Id_empleado`),
+  KEY `Id_empresa` (`Id_empresa`),
+  KEY `Status` (`Status`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `empleados`
 --
 
 INSERT INTO `empleados` (`Id_empleado`, `Nombre`, `Direccion`, `Telefono`, `email`, `Id_empresa`, `Status`) VALUES
-(1, 'Alex', 'Tlahuac', '5612717341', 'zekalex100@gmail.com', 2, 0),
-(2, 'Empleado 2', 'Direccion 2', '5522657855', 'prueba@prueba2.com', 1, 0);
+(1, 'Empleado1', 'Direccion 1', '5555555555', 'correo@correo.com', 3, 0),
+(2, 'Empleado 2', 'Direccion 2', '2222222222', 'prueba@prueba2.com', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -56,19 +57,21 @@ INSERT INTO `empleados` (`Id_empleado`, `Nombre`, `Direccion`, `Telefono`, `emai
 
 DROP TABLE IF EXISTS `empresa`;
 CREATE TABLE IF NOT EXISTS `empresa` (
-  `Id_empresa` int(11) NOT NULL AUTO_INCREMENT,
+  `Id_empresa` int NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(20) NOT NULL,
   `Direccion` varchar(40) NOT NULL,
   PRIMARY KEY (`Id_empresa`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `empresa`
 --
 
 INSERT INTO `empresa` (`Id_empresa`, `Nombre`, `Direccion`) VALUES
-(1, 'TecnoByte', 'CDMX'),
-(2, 'Telmex', 'CDMX');
+(1, 'Empresa 1', 'CDMX'),
+(2, 'Empresa 2', 'CDMX'),
+(3, 'Empresa 3', 'CDMX'),
+(4, 'Empresa 4', 'CDMX');
 
 -- --------------------------------------------------------
 
@@ -78,9 +81,10 @@ INSERT INTO `empresa` (`Id_empresa`, `Nombre`, `Direccion`) VALUES
 
 DROP TABLE IF EXISTS `status`;
 CREATE TABLE IF NOT EXISTS `status` (
-  `ID` int(11) NOT NULL,
-  `Descripcion` varchar(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `ID` int NOT NULL,
+  `Descripcion` varchar(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `status`
@@ -89,6 +93,17 @@ CREATE TABLE IF NOT EXISTS `status` (
 INSERT INTO `status` (`ID`, `Descripcion`) VALUES
 (0, 'Activo'),
 (1, 'inactivo');
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `empleados`
+--
+ALTER TABLE `empleados`
+  ADD CONSTRAINT `empleados_ibfk_1` FOREIGN KEY (`Id_empresa`) REFERENCES `empresa` (`Id_empresa`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `empleados_ibfk_2` FOREIGN KEY (`Status`) REFERENCES `status` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
