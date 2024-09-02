@@ -1,4 +1,5 @@
 <?php
-// Redirigir a la vista principal en la carpeta views
+//* @author AlexGFJ (C)
+//* @since 15 Agosto 2024
 header('Location: ./views/index.php');
 exit();
